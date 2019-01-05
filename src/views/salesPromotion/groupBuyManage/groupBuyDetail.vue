@@ -230,7 +230,7 @@
               <el-form-item label="商品状态 ：">
                 <el-select v-model="setGiftsData.addForm.isOnShelf" placeholder="请选择">
                   <el-option
-                    v-for="(item, index) in optionsCategory"
+                    v-for="(item, index) in $store.state.goodsStatus"
                     :key="index"
                     :label="item.label"
                     :value="item.value">
@@ -292,7 +292,7 @@
         <el-table-column
           align="center"
           label="商品状态">
-          <template slot-scope="scope">{{ scope.row.isOnShelf | shelf() }}</template>
+          <template slot-scope="scope">{{ scope.row.isOnShelf  | QueryGoodsStatus('label') }}</template>
         </el-table-column>
       </el-table>
       <pagination
@@ -370,20 +370,6 @@ export default {
           id: 1,
           label: '普通用户',
           disabled: true,
-        },
-      ],
-      optionsCategory: [
-        {
-          value: '',
-          label: '平台全部商品',
-        },
-        {
-          value: 'T',
-          label: '平台在售商品',
-        },
-        {
-          value: 'F',
-          label: '平台待售商品',
         },
       ],
       // 添加代理弹窗数据

@@ -8,6 +8,20 @@ Vue.use(Vuex);
 const state = {
   dataId:0,
   loginData: sessionStorage.gld ? JSON.parse(tools.base64.decode(sessionStorage.gld)) : {login: false, userInfo: {}},
+  goodsStatus: {
+    all: {
+      value: '',
+      label: '平台全部商品'
+    },
+    onSale: {
+      value: 'T',
+      label: '平台在售商品'
+    },
+    forSale: {
+      value: 'F',
+      label: '平台待售商品'
+    }
+  }
 };
 
 const mutations = {
