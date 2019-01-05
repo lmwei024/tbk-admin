@@ -28,7 +28,7 @@
 
 <script>
 import Cookies from 'js-cookie';
-
+import { mapState, mapActions } from 'vuex';
 export default {
   name: 'head-nav',
   data() {
@@ -38,7 +38,13 @@ export default {
       navList: [{ privileges_name: '首页', leading_url: '/main/home', id: 0 }],
     };
   },
+  computed: {
+    ...mapState({
+      loginData: state => state.loginData
+    })
+  },
   mounted() {
+    console.log('loginData', this.loginData);
     this.name = JSON.parse(localStorage.getItem('name'));
     const types = localStorage.getItem('types');
     const types2 = localStorage.getItem('types2');
@@ -68,6 +74,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['updateloginDataAction']),
     handleNav(item) {
       const itemv = item;
       if (!itemv.id) {
@@ -110,6 +117,7 @@ export default {
     },
     handleQuit() {
       localStorage.clear();
+      this.updateloginDataAction({login: false, userInfo: {}});
       Cookies.remove('Frontend-Token');
       Cookies.remove('PHPSESSID');
       this.$router.push('/login');

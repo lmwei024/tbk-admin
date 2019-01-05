@@ -56,6 +56,7 @@
 <script>
 import Cookies from 'js-cookie';
 import { setToken } from '../../utils/auth';
+import { mapState, mapActions } from 'vuex';
 
 export default{
   data() {
@@ -77,7 +78,13 @@ export default{
       },
     };
   },
+  computed: {
+    ...mapState({
+      loginData: state => state.loginData
+    })
+  },
   mounted() {
+    console.log('loginData', this.loginData);
     this.box = true;
   },
   computed: {
@@ -86,6 +93,7 @@ export default{
     },
   },
   methods: {
+    ...mapActions(['updateloginDataAction']),
     handleLogin() {
       let _this = this
       this.login = true;
@@ -95,7 +103,7 @@ export default{
       };
       this.$http.post(_this.$api.AdmindoLoginRes, params).then((response) => {
         if (response.code !== 200) {
-          console.log(response)
+          console.log(response);
           this.login = false;
           this.$notify.error({
             title: '错误',
@@ -109,6 +117,7 @@ export default{
           Cookies.set('password', this.ruleForm.password, { expires: 1, path: '' });
         }
         setToken(response.data.back_token, 1);
+        _this.updateloginDataAction({login: true, userInfo: response.data});
         Cookies.set('id', JSON.stringify(response.data.MB_MbNo));
         localStorage.setItem('supplierId', JSON.stringify(response.data.MB_MbNo));
         localStorage.setItem('types', JSON.stringify(response.data.identity_type));

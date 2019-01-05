@@ -11,12 +11,19 @@ import App from './App';
 import router from './router';
 import store from './store/store';
 import api from './api';
+import filters from './filters';
+import tools from './tools';
 
 Vue.use(Element);
 Vue.use(preview);
 Vue.config.productionTip = false;
 Vue.prototype.$http = instance;
 Vue.prototype.$api = api;
+Vue.prototype.$tools = tools;
+
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+});
 
 /* eslint-disable no-new */
 new Vue({
