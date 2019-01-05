@@ -3,7 +3,7 @@
        <transition name="bounce" mode="in-out">
         <div class="login-form" v-if="box">
           <div class="left">
-            <h4>淘宝客后台系统1</h4>
+            <h4>淘宝客后台系统2</h4>
             <el-form
               :model="ruleForm"
               :rules="rules"
