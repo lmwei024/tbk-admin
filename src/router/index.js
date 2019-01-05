@@ -7,6 +7,17 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      component: Layout,
+      redirect: '/index',
+      children: [{
+        path: 'index',
+        name: 'index',
+        component: resolve => require(['@/views/Index/Index'], resolve),
+      },
+      ],
+    },
     { // 首页
       path: '/main',
       component: Layout,
